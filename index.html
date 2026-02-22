@@ -1,43 +1,324 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<title>Sheshank | Developer</title>
-<style>
-body{font-family:Arial;text-align:center;margin:40px;}
-section{margin:40px;}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sheshank | Developer</title>
+  <meta name="description" content="Sheshank — B.Tech student and aspiring developer. Portfolio, projects, skills, and contact."/>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#0f1a2e;
+      --text:#eaf0ff;
+      --muted:#b9c4e6;
+      --line:rgba(255,255,255,.12);
+      --accent:#7c5cff;
+      --accent2:#22c55e;
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 15% 10%, rgba(124,92,255,.22), transparent 55%),
+        radial-gradient(900px 500px at 85% 20%, rgba(34,197,94,.16), transparent 55%),
+        radial-gradient(800px 450px at 50% 90%, rgba(56,189,248,.14), transparent 55%),
+        linear-gradient(180deg, #070b14, var(--bg));
+      min-height:100vh;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1100px; margin:0 auto; padding:28px 18px 70px;}
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:999px;
+      background:rgba(15,26,46,.55); backdrop-filter: blur(10px);
+      position:sticky; top:14px; z-index:10;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px;}
+    .dot{
+      width:12px; height:12px; border-radius:50%;
+      background:linear-gradient(135deg, var(--accent), #38bdf8);
+      box-shadow:0 0 0 6px rgba(124,92,255,.15);
+    }
+    .links{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end;}
+    .links a{
+      font-size:14px; color:var(--muted);
+      padding:8px 12px; border-radius:999px;
+      border:1px solid transparent;
+    }
+    .links a:hover{border-color:var(--line); color:var(--text); background:rgba(255,255,255,.04)}
+    .hero{
+      margin-top:22px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(15,26,46,.75), rgba(15,26,46,.35));
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(500px 240px at 10% 10%, rgba(124,92,255,.25), transparent 60%),
+                  radial-gradient(500px 240px at 90% 20%, rgba(34,197,94,.18), transparent 60%);
+      pointer-events:none;
+    }
+    .hero-inner{
+      position:relative;
+      padding:34px 22px;
+      display:grid; gap:22px;
+      grid-template-columns: 1.2fr .8fr;
+      align-items:center;
+    }
+    @media (max-width:860px){
+      .hero-inner{grid-template-columns:1fr; padding:28px 18px;}
+      .links{display:none}
+    }
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      color:var(--muted); font-size:14px;
+      padding:8px 12px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(255,255,255,.03);
+      width:fit-content;
+    }
+    .pill{
+      font-size:12px; padding:4px 8px; border-radius:999px;
+      background:rgba(34,197,94,.12); border:1px solid rgba(34,197,94,.35);
+      color:#d9ffe7;
+    }
+    h1{margin:12px 0 10px; font-size:44px; line-height:1.05; letter-spacing:-.6px;}
+    @media (max-width:520px){h1{font-size:34px}}
+    .sub{color:var(--muted); font-size:16px; line-height:1.6; max-width:62ch; margin:0;}
+    .cta{display:flex; gap:12px; margin-top:18px; flex-wrap:wrap;}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:11px 14px; border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--text); font-weight:600; font-size:14px;
+    }
+    .btn:hover{background:rgba(255,255,255,.07)}
+    .btn.primary{
+      background:linear-gradient(135deg, var(--accent), #38bdf8);
+      border-color:rgba(255,255,255,.14);
+    }
+    .btn.primary:hover{filter:brightness(1.05)}
+    .card-mini{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(10,16,30,.45);
+      padding:16px;
+      display:grid; gap:12px;
+    }
+    .stat{
+      display:flex; justify-content:space-between; align-items:center;
+      padding:10px 12px; border:1px solid var(--line);
+      border-radius:14px; background:rgba(255,255,255,.03);
+      font-size:14px; color:var(--muted);
+    }
+    .stat b{color:var(--text); font-weight:700}
+    .grid{
+      margin-top:22px;
+      display:grid; gap:16px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .card{
+      grid-column: span 6;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(15,26,46,.35);
+      padding:18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.22);
+    }
+    @media (max-width:900px){.card{grid-column: span 12}}
+    .card h2{margin:0 0 10px; font-size:18px}
+    .muted{color:var(--muted); line-height:1.65; margin:0;}
+    .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;}
+    .tag{
+      font-size:12px; color:var(--muted);
+      padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+    }
+    .projects{grid-column: span 12;}
+    .proj-grid{
+      display:grid; gap:12px;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top:12px;
+    }
+    @media (max-width:900px){.proj-grid{grid-template-columns:1fr}}
+    .proj{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:rgba(255,255,255,.03);
+      padding:14px;
+      display:grid; gap:10px;
+    }
+    .proj .top{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+    .badge{
+      font-size:12px; padding:4px 8px; border-radius:999px;
+      border:1px solid rgba(124,92,255,.35);
+      background:rgba(124,92,255,.12);
+      color:#e9e4ff;
+      white-space:nowrap;
+    }
+    .proj h3{margin:0; font-size:15px}
+    .proj p{margin:0; color:var(--muted); font-size:13px; line-height:1.55}
+    footer{
+      margin-top:26px; padding-top:18px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      font-size:13px;
+    }
+    .social{display:flex; gap:10px; flex-wrap:wrap;}
+    .social a{padding:8px 10px; border-radius:12px; border:1px solid var(--line); background:rgba(255,255,255,.03)}
+    .social a:hover{background:rgba(255,255,255,.06); color:var(--text)}
+    .icon{width:16px; height:16px; display:inline-block; vertical-align:-3px; opacity:.9}
+  </style>
 </head>
 <body>
+  <div class="wrap">
+    <div class="nav">
+      <div class="brand"><span class="dot"></span> Sheshank</div>
+      <div class="links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
 
-<h1>Hi, I'm Sheshank 👋</h1>
-<p>B.Tech student | Aspiring Developer</p>
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="kicker">
+            <span class="pill">Open to learning</span>
+            <span>B.Tech student • Aspiring Developer</span>
+          </div>
 
-<section>
-<h2>About Me</h2>
-<p>I am passionate about web development, AI/ML, and building projects.</p>
-</section>
+          <h1>Building websites & learning AI/ML.</h1>
+          <p class="sub">
+            I’m Sheshank — I enjoy turning ideas into simple, useful projects.
+            This site is my portfolio where I share what I’m learning, what I’m building, and how to reach me.
+          </p>
 
-<section>
-<h2>Skills</h2>
-<p>HTML • CSS • JavaScript • Python • Git</p>
-</section>
+          <div class="cta">
+            <a class="btn primary" href="#projects">View Projects</a>
+            <a class="btn" href="https://github.com/Dachepally-Sheshank" target="_blank" rel="noreferrer">GitHub</a>
+            <!-- Optional: add your LinkedIn if you have it -->
+            <!-- <a class="btn" href="https://www.linkedin.com/in/YOUR-LINKEDIN/" target="_blank" rel="noreferrer">LinkedIn</a> -->
+          </div>
+        </div>
 
-<section>
-<h2>Projects</h2>
-<p>Coming soon — currently working on new projects.</p>
-</section>
+        <div class="card-mini">
+          <div class="stat"><span>Focus</span><b>Web + AI/ML</b></div>
+          <div class="stat"><span>Currently learning</span><b>HTML • CSS • JS</b></div>
+          <div class="stat"><span>Tools</span><b>Git • GitHub</b></div>
+          <div class="stat"><span>Location</span><b>India</b></div>
+        </div>
+      </div>
+    </section>
 
-<section>
-<h2>Contact</h2>
-<p>Email: your@email.com</p>
-</section>
+    <section class="grid">
+      <div class="card" id="about">
+        <h2>About</h2>
+        <p class="muted">
+          I’m a B.Tech student interested in web development and AI/ML. I like building clean UIs,
+          learning by doing, and improving my skills through projects and consistent practice.
+        </p>
+      </div>
 
-<section>
-<h2>Social Links</h2>
-<p>
-<a href="https://github.com/Dachepally-Sheshank">GitHub</a>
-</p>
-</section>
+      <div class="card" id="skills">
+        <h2>Skills</h2>
+        <p class="muted">Core technologies I’m working with right now:</p>
+        <div class="tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Python</span>
+          <span class="tag">Git & GitHub</span>
+        </div>
+      </div>
 
+      <div class="card projects" id="projects">
+        <h2>Projects</h2>
+        <p class="muted">
+          These are simple projects / work samples. I’ll keep updating this section as I build more.
+        </p>
+
+        <div class="proj-grid">
+          <div class="proj">
+            <div class="top">
+              <h3>Portfolio Website</h3>
+              <span class="badge">Live</span>
+            </div>
+            <p>A clean personal website hosted on GitHub Pages.</p>
+            <div class="tags">
+              <span class="tag">HTML</span><span class="tag">CSS</span>
+            </div>
+          </div>
+
+          <div class="proj">
+            <div class="top">
+              <h3>Learning Tracker</h3>
+              <span class="badge">In progress</span>
+            </div>
+            <p>A simple tracker for topics I’m learning and daily progress.</p>
+            <div class="tags">
+              <span class="tag">JavaScript</span><span class="tag">DOM</span>
+            </div>
+          </div>
+
+          <div class="proj">
+            <div class="top">
+              <h3>Mini Calculator</h3>
+              <span class="badge">Planned</span>
+            </div>
+            <p>A basic calculator to practice JS logic and UI.</p>
+            <div class="tags">
+              <span class="tag">JavaScript</span><span class="tag">UI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="contact">
+        <h2>Contact</h2>
+        <p class="muted">
+          Want to reach me? The fastest way is GitHub.
+        </p>
+        <div class="tags" style="margin-top:12px">
+          <span class="tag">GitHub: @Dachepally-Sheshank</span>
+          <span class="tag">Email: dsheshank06@gmail.com</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Social</h2>
+        <p class="muted"></p>
+        <div class="social" style="margin-top:12px">
+          <a href="https://github.com/Dachepally-Sheshank" target="_blank" rel="noreferrer">
+            <span class="icon">🔗</span> GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/dachepally-sheshank-18b867313//" target="_blank" rel="noreferrer"><span class="icon">🔗</span> LinkedIn</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="y"></span> Sheshank • Built with HTML/CSS • Hosted on GitHub Pages</div>
+      <div>Last updated: <span id="d"></span></div>
+    </footer>
+  </div>
+
+  <script>
+    const now = new Date();
+    document.getElementById("y").textContent = now.getFullYear();
+    document.getElementById("d").textContent = now.toLocaleDateString(undefined, {year:"numeric", month:"short", day:"2-digit"});
+  </script>
 </body>
 </html>
