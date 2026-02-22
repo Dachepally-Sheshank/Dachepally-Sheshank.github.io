@@ -6,9 +6,11 @@
   <title>Sheshank | Developer</title>
   <meta name="description" content="Sheshank — B.Tech student and aspiring developer. Portfolio, projects, skills, and contact."/>
   <style>
+    /* ---------- THEME TOKENS ---------- */
     :root{
       --bg:#0b1220;
-      --card:#0f1a2e;
+      --card: rgba(15,26,46,.45);
+      --card2: rgba(255,255,255,.03);
       --text:#eaf0ff;
       --muted:#b9c4e6;
       --line:rgba(255,255,255,.12);
@@ -17,6 +19,18 @@
       --shadow: 0 20px 60px rgba(0,0,0,.35);
       --radius:18px;
     }
+    html[data-theme="light"]{
+      --bg:#f6f7fb;
+      --card: rgba(255,255,255,.75);
+      --card2: rgba(0,0,0,.03);
+      --text:#0f172a;
+      --muted:#475569;
+      --line:rgba(15,23,42,.12);
+      --accent:#5b5cff;
+      --accent2:#16a34a;
+      --shadow: 0 20px 60px rgba(15,23,42,.14);
+    }
+
     *{box-sizing:border-box}
     body{
       margin:0;
@@ -26,34 +40,55 @@
         radial-gradient(900px 500px at 15% 10%, rgba(124,92,255,.22), transparent 55%),
         radial-gradient(900px 500px at 85% 20%, rgba(34,197,94,.16), transparent 55%),
         radial-gradient(800px 450px at 50% 90%, rgba(56,189,248,.14), transparent 55%),
-        linear-gradient(180deg, #070b14, var(--bg));
+        linear-gradient(180deg, transparent, var(--bg));
+      background-color: var(--bg);
       min-height:100vh;
     }
     a{color:inherit; text-decoration:none}
     .wrap{max-width:1100px; margin:0 auto; padding:28px 18px 70px;}
+
+    /* ---------- NAV ---------- */
     .nav{
       display:flex; align-items:center; justify-content:space-between;
       padding:14px 16px; border:1px solid var(--line); border-radius:999px;
-      background:rgba(15,26,46,.55); backdrop-filter: blur(10px);
+      background:var(--card); backdrop-filter: blur(10px);
       position:sticky; top:14px; z-index:10;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
     }
-    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px;}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px;}
     .dot{
       width:12px; height:12px; border-radius:50%;
       background:linear-gradient(135deg, var(--accent), #38bdf8);
       box-shadow:0 0 0 6px rgba(124,92,255,.15);
     }
-    .links{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end;}
+    .links{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end; align-items:center;}
     .links a{
       font-size:14px; color:var(--muted);
       padding:8px 12px; border-radius:999px;
       border:1px solid transparent;
     }
     .links a:hover{border-color:var(--line); color:var(--text); background:rgba(255,255,255,.04)}
+    .toggle{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:999px;
+      border:1px solid var(--line);
+      background:var(--card2);
+      font-size:14px; color:var(--muted);
+      cursor:pointer; user-select:none;
+    }
+    .toggle:hover{color:var(--text); background:rgba(255,255,255,.06)}
+    .toggle span{opacity:.9}
+    .sr{position:absolute; left:-9999px}
+
+    @media (max-width:860px){
+      .links .navlink{display:none}
+    }
+
+    /* ---------- HERO ---------- */
     .hero{
       margin-top:22px;
       border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(15,26,46,.75), rgba(15,26,46,.35));
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
       border-radius:var(--radius);
       box-shadow: var(--shadow);
       overflow:hidden;
@@ -62,8 +97,9 @@
     .hero::before{
       content:"";
       position:absolute; inset:-2px;
-      background: radial-gradient(500px 240px at 10% 10%, rgba(124,92,255,.25), transparent 60%),
-                  radial-gradient(500px 240px at 90% 20%, rgba(34,197,94,.18), transparent 60%);
+      background:
+        radial-gradient(500px 240px at 10% 10%, rgba(124,92,255,.25), transparent 60%),
+        radial-gradient(500px 240px at 90% 20%, rgba(34,197,94,.18), transparent 60%);
       pointer-events:none;
     }
     .hero-inner{
@@ -75,30 +111,29 @@
     }
     @media (max-width:860px){
       .hero-inner{grid-template-columns:1fr; padding:28px 18px;}
-      .links{display:none}
     }
     .kicker{
       display:inline-flex; align-items:center; gap:10px;
       color:var(--muted); font-size:14px;
       padding:8px 12px; border-radius:999px;
-      border:1px solid var(--line); background:rgba(255,255,255,.03);
+      border:1px solid var(--line); background:var(--card2);
       width:fit-content;
     }
     .pill{
       font-size:12px; padding:4px 8px; border-radius:999px;
       background:rgba(34,197,94,.12); border:1px solid rgba(34,197,94,.35);
-      color:#d9ffe7;
+      color:inherit;
     }
     h1{margin:12px 0 10px; font-size:44px; line-height:1.05; letter-spacing:-.6px;}
     @media (max-width:520px){h1{font-size:34px}}
-    .sub{color:var(--muted); font-size:16px; line-height:1.6; max-width:62ch; margin:0;}
+    .sub{color:var(--muted); font-size:16px; line-height:1.7; max-width:62ch; margin:0;}
     .cta{display:flex; gap:12px; margin-top:18px; flex-wrap:wrap;}
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding:11px 14px; border-radius:12px;
       border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      color:var(--text); font-weight:600; font-size:14px;
+      background:var(--card2);
+      color:var(--text); font-weight:700; font-size:14px;
     }
     .btn:hover{background:rgba(255,255,255,.07)}
     .btn.primary{
@@ -109,17 +144,19 @@
     .card-mini{
       border:1px solid var(--line);
       border-radius:var(--radius);
-      background:rgba(10,16,30,.45);
+      background:var(--card);
       padding:16px;
       display:grid; gap:12px;
     }
     .stat{
       display:flex; justify-content:space-between; align-items:center;
       padding:10px 12px; border:1px solid var(--line);
-      border-radius:14px; background:rgba(255,255,255,.03);
+      border-radius:14px; background:var(--card2);
       font-size:14px; color:var(--muted);
     }
-    .stat b{color:var(--text); font-weight:700}
+    .stat b{color:var(--text); font-weight:800}
+
+    /* ---------- SECTIONS ---------- */
     .grid{
       margin-top:22px;
       display:grid; gap:16px;
@@ -129,20 +166,21 @@
       grid-column: span 6;
       border:1px solid var(--line);
       border-radius:var(--radius);
-      background:rgba(15,26,46,.35);
+      background:var(--card);
       padding:18px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.22);
+      box-shadow: 0 10px 30px rgba(0,0,0,.10);
     }
     @media (max-width:900px){.card{grid-column: span 12}}
     .card h2{margin:0 0 10px; font-size:18px}
-    .muted{color:var(--muted); line-height:1.65; margin:0;}
+    .muted{color:var(--muted); line-height:1.75; margin:0;}
     .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;}
     .tag{
       font-size:12px; color:var(--muted);
       padding:6px 10px; border-radius:999px;
       border:1px solid var(--line);
-      background:rgba(255,255,255,.03);
+      background:var(--card2);
     }
+
     .projects{grid-column: span 12;}
     .proj-grid{
       display:grid; gap:12px;
@@ -153,7 +191,7 @@
     .proj{
       border:1px solid var(--line);
       border-radius:16px;
-      background:rgba(255,255,255,.03);
+      background:var(--card2);
       padding:14px;
       display:grid; gap:10px;
     }
@@ -162,11 +200,22 @@
       font-size:12px; padding:4px 8px; border-radius:999px;
       border:1px solid rgba(124,92,255,.35);
       background:rgba(124,92,255,.12);
-      color:#e9e4ff;
+      color:inherit;
       white-space:nowrap;
     }
     .proj h3{margin:0; font-size:15px}
-    .proj p{margin:0; color:var(--muted); font-size:13px; line-height:1.55}
+    .proj p{margin:0; color:var(--muted); font-size:13px; line-height:1.65}
+    .proj a.link{
+      width:fit-content;
+      font-size:13px; font-weight:700;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+    }
+    .proj a.link:hover{background:rgba(255,255,255,.07)}
+
+    /* ---------- FOOTER ---------- */
     footer{
       margin-top:26px; padding-top:18px;
       border-top:1px solid var(--line);
@@ -175,20 +224,25 @@
       font-size:13px;
     }
     .social{display:flex; gap:10px; flex-wrap:wrap;}
-    .social a{padding:8px 10px; border-radius:12px; border:1px solid var(--line); background:rgba(255,255,255,.03)}
+    .social a{padding:8px 10px; border-radius:12px; border:1px solid var(--line); background:var(--card2)}
     .social a:hover{background:rgba(255,255,255,.06); color:var(--text)}
-    .icon{width:16px; height:16px; display:inline-block; vertical-align:-3px; opacity:.9}
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="nav">
       <div class="brand"><span class="dot"></span> Sheshank</div>
+
       <div class="links">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+        <a class="navlink" href="#about">About</a>
+        <a class="navlink" href="#skills">Skills</a>
+        <a class="navlink" href="#projects">Projects</a>
+        <a class="navlink" href="#contact">Contact</a>
+
+        <button class="toggle" id="themeToggle" type="button" aria-label="Toggle dark/light theme">
+          <span id="themeIcon">🌙</span>
+          <span id="themeText">Dark</span>
+        </button>
       </div>
     </div>
 
@@ -203,14 +257,13 @@
           <h1>Building websites & learning AI/ML.</h1>
           <p class="sub">
             I’m Sheshank — I enjoy turning ideas into simple, useful projects.
-            This site is my portfolio where I share what I’m learning, what I’m building, and how to reach me.
+            This is my portfolio where I share what I’m learning, what I’m building, and how to reach me.
           </p>
 
           <div class="cta">
             <a class="btn primary" href="#projects">View Projects</a>
             <a class="btn" href="https://github.com/Dachepally-Sheshank" target="_blank" rel="noreferrer">GitHub</a>
-            <!-- Optional: add your LinkedIn if you have it -->
-            <!-- <a class="btn" href="https://www.linkedin.com/in/YOUR-LINKEDIN/" target="_blank" rel="noreferrer">LinkedIn</a> -->
+            <a class="btn" href="https://www.linkedin.com/in/dachepally-sheshank-18b867313/" target="_blank" rel="noreferrer">LinkedIn</a>
           </div>
         </div>
 
@@ -260,6 +313,7 @@
             <div class="tags">
               <span class="tag">HTML</span><span class="tag">CSS</span>
             </div>
+            <a class="link" href="https://dachepally-sheshank.github.io/" target="_blank" rel="noreferrer">View</a>
           </div>
 
           <div class="proj">
@@ -271,6 +325,7 @@
             <div class="tags">
               <span class="tag">JavaScript</span><span class="tag">DOM</span>
             </div>
+            <a class="link" href="https://github.com/Dachepally-Sheshank" target="_blank" rel="noreferrer">GitHub</a>
           </div>
 
           <div class="proj">
@@ -282,6 +337,7 @@
             <div class="tags">
               <span class="tag">JavaScript</span><span class="tag">UI</span>
             </div>
+            <a class="link" href="https://github.com/Dachepally-Sheshank" target="_blank" rel="noreferrer">GitHub</a>
           </div>
         </div>
       </div>
@@ -289,22 +345,21 @@
       <div class="card" id="contact">
         <h2>Contact</h2>
         <p class="muted">
-          Want to reach me? The fastest way is GitHub.
+          Want to reach me? GitHub and LinkedIn are best for now.
         </p>
         <div class="tags" style="margin-top:12px">
           <span class="tag">GitHub: @Dachepally-Sheshank</span>
-          <span class="tag">Email: dsheshank06@gmail.com</span>
+          <span class="tag">LinkedIn: /dachepally-sheshank-18b867313</span>
+          <a class="tag" href="mailto:dsheshank06@gmail.com">Email: dsheshank06@gmail.com</a>
         </div>
       </div>
 
       <div class="card">
         <h2>Social</h2>
-        <p class="muted"></p>
+        <p class="muted">Links that help reviewers verify you:</p>
         <div class="social" style="margin-top:12px">
-          <a href="https://github.com/Dachepally-Sheshank" target="_blank" rel="noreferrer">
-            <span class="icon">🔗</span> GitHub
-          </a>
-          <a href="https://www.linkedin.com/in/dachepally-sheshank-18b867313//" target="_blank" rel="noreferrer"><span class="icon">🔗</span> LinkedIn</a>
+          <a href="https://github.com/Dachepally-Sheshank" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/dachepally-sheshank-18b867313/" target="_blank" rel="noreferrer">LinkedIn</a>
         </div>
       </div>
     </section>
@@ -316,9 +371,38 @@
   </div>
 
   <script>
+    // Footer dates
     const now = new Date();
     document.getElementById("y").textContent = now.getFullYear();
     document.getElementById("d").textContent = now.toLocaleDateString(undefined, {year:"numeric", month:"short", day:"2-digit"});
+
+    // Theme toggle (persists in localStorage)
+    const root = document.documentElement;
+    const btn = document.getElementById("themeToggle");
+    const icon = document.getElementById("themeIcon");
+    const text = document.getElementById("themeText");
+
+    function setTheme(theme){
+      root.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+      const isLight = theme === "light";
+      icon.textContent = isLight ? "☀️" : "🌙";
+      text.textContent = isLight ? "Light" : "Dark";
+    }
+
+    // Load saved theme OR use system preference
+    const saved = localStorage.getItem("theme");
+    if (saved) {
+      setTheme(saved);
+    } else {
+      const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+      setTheme(prefersLight ? "light" : "dark");
+    }
+
+    btn.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme") || "dark";
+      setTheme(current === "dark" ? "light" : "dark");
+    });
   </script>
 </body>
 </html>
